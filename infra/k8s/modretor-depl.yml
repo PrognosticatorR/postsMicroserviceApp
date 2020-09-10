@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: modretor-depl
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: modretor
+   template:
+      metadata:
+         labels:
+            app: modretor
+      spec:
+         containers:
+            - name: modretor
+              image: rawatdevesh/modretor
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: modretor-srv
+spec:
+   selector:
+      app: modretor
+   type: ClusterIP
+   ports:
+      - name: modretor
+        protocol: TCP
+        port: 4004
+        targetPort: 4004
